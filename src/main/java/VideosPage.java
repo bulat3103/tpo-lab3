@@ -17,11 +17,14 @@ public class VideosPage extends Page{
     private WebElement shortsButton;
     @FindBy(xpath = "/html/body/ytd-app/ytd-popup-container/tp-yt-iron-dropdown/div/ytd-multi-page-menu-renderer/div[3]/div[1]/yt-multi-page-menu-section-renderer[1]/div[2]/ytd-compact-link-renderer[4]/a/tp-yt-paper-item/div[2]")
     private WebElement logoutButton;
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/div/ytd-masthead/div[4]/div[1]/yt-icon-button[2]/button")
+    private WebElement burgerMenu;
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/tp-yt-app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[1]/div/ytd-guide-collapsible-section-entry-renderer/div[2]/ytd-guide-entry-renderer[1]/a")
+    private WebElement historyButton;
 
     public VideosPage() {
         PageFactory.initElements(driver, this);
     }
-
 
     public VideosPage likeVideo() throws InterruptedException {
         firstYoutubeVideoLink.click();
@@ -49,5 +52,12 @@ public class VideosPage extends Page{
         profileButton.click();
         logoutButton.click();
         return new MainPage();
+    }
+
+    public HistoryPage burgerMenu() throws InterruptedException {
+        firstYoutubeVideoLink.click();
+        burgerMenu.click();
+        historyButton.click();
+        return new HistoryPage();
     }
 }

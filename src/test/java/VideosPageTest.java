@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-public class AuthTest {
+public class VideosPageTest {
 
     @AfterEach
     public void tearDown() {
@@ -14,13 +14,14 @@ public class AuthTest {
     }
 
     @Test
-    void correctLoginTest() {
+    public void profileNameTest() {
         List<WebDriver> drivers = Utils.getDrivers();
         drivers.parallelStream().forEach(driver -> {
             Page.setDriver(driver);
             AuthPage authPage = new AuthPage();
             try {
-                authPage.login(Utils.CORRECT_EMAIL).password(Utils.CORRECT_PASSWORD);
+                String profileName = authPage.login(Utils.CORRECT_EMAIL).password(Utils.CORRECT_PASSWORD).getProfileName();
+                assertEquals("Itmo Tpo", profileName, "Имена должны совпадать");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -28,14 +29,15 @@ public class AuthTest {
     }
 
     @Test
-    void incorrectLoginTest() {
+    public void likeTest() {
         List<WebDriver> drivers = Utils.getDrivers();
         drivers.parallelStream().forEach(driver -> {
             Page.setDriver(driver);
             AuthPage authPage = new AuthPage();
             try {
-                String error = authPage.authWithIncorrectLogin(Utils.INCORRECT_EMAIL);
-                assertEquals("Не удалось найти аккаунт Google.", error);
+                authPage.login(Utils.CORRECT_EMAIL)
+                        .password(Utils.CORRECT_PASSWORD)
+                        .likeVideo();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -43,14 +45,15 @@ public class AuthTest {
     }
 
     @Test
-    void incorrectPasswordTest() {
+    public void subscribeTest() {
         List<WebDriver> drivers = Utils.getDrivers();
         drivers.parallelStream().forEach(driver -> {
             Page.setDriver(driver);
             AuthPage authPage = new AuthPage();
             try {
-                String error = authPage.login(Utils.CORRECT_EMAIL).authWithIncorrectPassword(Utils.WRONG_PASSWORD);
-                assertEquals("Неверный пароль. Повторите попытку или нажмите на ссылку \"Забыли пароль?\", чтобы сбросить его.", error);
+                authPage.login(Utils.CORRECT_EMAIL)
+                        .password(Utils.CORRECT_PASSWORD)
+                        .subscribeToChannel();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -58,13 +61,15 @@ public class AuthTest {
     }
 
     @Test
-    void logout() {
+    public void goToShortsTest() {
         List<WebDriver> drivers = Utils.getDrivers();
         drivers.parallelStream().forEach(driver -> {
             Page.setDriver(driver);
             AuthPage authPage = new AuthPage();
             try {
-                authPage.login(Utils.CORRECT_EMAIL).password(Utils.CORRECT_PASSWORD).logout();
+                authPage.login(Utils.CORRECT_EMAIL)
+                        .password(Utils.CORRECT_PASSWORD)
+                        .goToShorts();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

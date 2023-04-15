@@ -13,10 +13,10 @@ public class VideosPage extends Page{
     private WebElement profileButton;
     @FindBy(xpath = "/html/body/ytd-app/ytd-popup-container/tp-yt-iron-dropdown/div/ytd-multi-page-menu-renderer/div[2]/ytd-active-account-header-renderer/div/yt-formatted-string[1]")
     private WebElement profileName;
-    @FindBy(xpath = "/html/body/ytd-app/div[1]/tp-yt-app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[1]/div/ytd-guide-entry-renderer[2]/a/tp-yt-paper-item")
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-mini-guide-renderer/div/ytd-mini-guide-entry-renderer[2]")
     private WebElement shortsButton;
-
-
+    @FindBy(xpath = "/html/body/ytd-app/ytd-popup-container/tp-yt-iron-dropdown/div/ytd-multi-page-menu-renderer/div[3]/div[1]/yt-multi-page-menu-section-renderer[1]/div[2]/ytd-compact-link-renderer[4]/a/tp-yt-paper-item/div[2]")
+    private WebElement logoutButton;
 
     public VideosPage() {
         PageFactory.initElements(driver, this);
@@ -43,5 +43,11 @@ public class VideosPage extends Page{
     public String getProfileName() throws InterruptedException {
         profileButton.click();
         return profileName.getText();
+    }
+
+    public MainPage logout() throws InterruptedException {
+        profileButton.click();
+        logoutButton.click();
+        return new MainPage();
     }
 }

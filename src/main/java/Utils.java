@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,6 +22,7 @@ public class Utils {
     public static final String INCORRECT_EMAIL = "authWithWrongs@gmail.com";
     public static final String CORRECT_PASSWORD = "tpolab2002";
     public static final String WRONG_PASSWORD = "wrongpassword";
+    public static final String QUERY = "Новый iPhone";
 
     public static List<WebDriver> getDrivers() {
         List<WebDriver> drivers = new ArrayList<>();
@@ -32,12 +34,12 @@ public class Utils {
                         case "chrome":
                             drivers.add(getChromeDriver());
                             return drivers;
-                        case "firefox":
-                            drivers.add(getFirefoxDriver());
+                        case "edge":
+                            drivers.add(getEdgeDriver());
                             return drivers;
                         case "both":
                             drivers.add(getChromeDriver());
-                            drivers.add(getFirefoxDriver());
+                            drivers.add(getEdgeDriver());
                             return drivers;
                     }
                 }
@@ -48,7 +50,7 @@ public class Utils {
         throw new RuntimeException("Web driver is not specified");
     }
 
-    public static ChromeDriver getChromeDriver() {
+    private static ChromeDriver getChromeDriver() {
         WebDriverManager.chromedriver().setup();
         ChromeDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -59,7 +61,20 @@ public class Utils {
 
     private static FirefoxDriver getFirefoxDriver() {
         WebDriverManager.firefoxdriver().setup();
-        return new FirefoxDriver();
+        FirefoxDriver driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        return driver;
+    }
+
+    private static EdgeDriver getEdgeDriver() {
+        WebDriverManager.edgedriver().setup();
+        EdgeDriver driver = new EdgeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        return driver;
     }
 
     public static WebElement getElementBySelector(WebDriver driver, By selector) {

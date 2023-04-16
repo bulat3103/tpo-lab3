@@ -14,6 +14,16 @@ public class VideosPageTest {
     }
 
     @Test
+    public void checkSearchTest() {
+        List<WebDriver> drivers = Utils.getDrivers();
+        drivers.parallelStream().forEach(driver -> {
+            Page.setDriver(driver);
+            MainPage mainPage = new MainPage();
+            mainPage.createQuery(Utils.QUERY);
+        });
+    }
+
+    @Test
     public void profileNameTest() {
         List<WebDriver> drivers = Utils.getDrivers();
         drivers.parallelStream().forEach(driver -> {

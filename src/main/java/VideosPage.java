@@ -3,6 +3,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class VideosPage extends Page{
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/div/ytd-masthead/div[4]/div[1]/ytd-topbar-logo-renderer/a/div/ytd-logo/yt-icon")
+    private WebElement mainLink;
     @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/ytd-two-column-browse-results-renderer/div[1]/ytd-rich-grid-renderer/div[6]/ytd-rich-grid-row[1]/div/ytd-rich-item-renderer[1]/div/ytd-rich-grid-media/div[1]/div[2]/div[1]/h3/a")
     private WebElement firstYoutubeVideoLink;
     @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-watch-metadata/div/div[2]/div[2]/div/div/ytd-menu-renderer/div[1]/ytd-segmented-like-dislike-button-renderer/div[1]/ytd-toggle-button-renderer/yt-button-shape/button/yt-touch-feedback-shape/div/div[2]")
@@ -23,12 +25,14 @@ public class VideosPage extends Page{
     private WebElement historyButton;
     @FindBy(xpath = "/html/body/ytd-app/div[1]/tp-yt-app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[1]/div/ytd-guide-collapsible-section-entry-renderer/div[2]/ytd-guide-entry-renderer[3]/a/tp-yt-paper-item")
     private WebElement likedVideosButton;
-    @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse[2]/ytd-two-column-browse-results-renderer/div[1]/ytd-rich-grid-renderer/div[6]/ytd-rich-grid-row[1]/div/ytd-rich-item-renderer[1]/div/ytd-rich-grid-media/div[1]/div[2]/div[2]/ytd-menu-renderer/yt-icon-button/button")
-    private WebElement videoActionsButton;
     @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/ytd-two-column-browse-results-renderer/div[1]/ytd-rich-grid-renderer/div[6]/ytd-rich-grid-row[1]/div/ytd-rich-item-renderer[1]/div/ytd-rich-grid-media/div[1]/div[2]/div[1]/ytd-video-meta-block/div[1]/div[1]/ytd-channel-name/div/div/yt-formatted-string/a")
     private WebElement firstVideoChannelLink;
     @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse[2]/ytd-two-column-browse-results-renderer/div[1]/ytd-section-list-renderer/div[2]/ytd-item-section-renderer[2]/div[3]/ytd-shelf-renderer/div[1]/div[1]/div/h2/div[2]/ytd-button-renderer/yt-button-shape/a")
     private WebElement playAllButton;
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-mini-guide-renderer/div/ytd-mini-guide-entry-renderer[3]/a")
+    private WebElement subscriptionsButton;
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse[2]/ytd-two-column-browse-results-renderer/div[1]/ytd-section-list-renderer/div[2]/ytd-item-section-renderer[1]/div[3]/ytd-shelf-renderer/div[1]/div[1]/div/div[2]/ytd-button-renderer/yt-button-shape/a")
+    private WebElement manageSubsButton;
 
     public VideosPage() {
         PageFactory.initElements(driver, this);
@@ -81,5 +85,14 @@ public class VideosPage extends Page{
         firstVideoChannelLink.click();
         playAllButton.click();
         return this;
+    }
+
+    public SubscriptionsPage manageSubscriptions() throws InterruptedException {
+        firstYoutubeVideoLink.click();
+        subscribeButton.click();
+        mainLink.click();
+        subscriptionsButton.click();
+        manageSubsButton.click();
+        return new SubscriptionsPage();
     }
 }

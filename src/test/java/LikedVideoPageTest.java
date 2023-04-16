@@ -4,8 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
-public class HistoryTest {
-
+public class LikedVideoPageTest {
     @AfterEach
     public void tearDown() {
         List<WebDriver> drivers = Utils.getDrivers();
@@ -21,8 +20,8 @@ public class HistoryTest {
             try {
                 authPage.login(Utils.CORRECT_EMAIL)
                         .password(Utils.CORRECT_PASSWORD)
-                        .historyMenu()
-                        .deleteAllHistory();
+                        .likesMenu()
+                        .deleteLiked();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

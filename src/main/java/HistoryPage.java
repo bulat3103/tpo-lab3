@@ -15,6 +15,6 @@ public class HistoryPage extends Page{
     public HistoryPage deleteAllHistory() {
         clearHistory.click();
         confirmClear.click();
-        return new HistoryPage();
+        return this;
     }
 }

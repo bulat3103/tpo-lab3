@@ -85,4 +85,20 @@ public class VideosPageTest {
             }
         });
     }
+
+    @Test
+    public void playAllVideoTest() {
+        List<WebDriver> drivers = Utils.getDrivers();
+        drivers.parallelStream().forEach(driver -> {
+            Page.setDriver(driver);
+            AuthPage authPage = new AuthPage();
+            try {
+                authPage.login(Utils.CORRECT_EMAIL)
+                        .password(Utils.CORRECT_PASSWORD)
+                        .playAllVideoOnChannel();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 }

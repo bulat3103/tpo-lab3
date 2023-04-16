@@ -21,6 +21,14 @@ public class VideosPage extends Page{
     private WebElement burgerMenu;
     @FindBy(xpath = "/html/body/ytd-app/div[1]/tp-yt-app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[1]/div/ytd-guide-collapsible-section-entry-renderer/div[2]/ytd-guide-entry-renderer[1]/a")
     private WebElement historyButton;
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/tp-yt-app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[1]/div/ytd-guide-collapsible-section-entry-renderer/div[2]/ytd-guide-entry-renderer[3]/a/tp-yt-paper-item")
+    private WebElement likedVideosButton;
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse[2]/ytd-two-column-browse-results-renderer/div[1]/ytd-rich-grid-renderer/div[6]/ytd-rich-grid-row[1]/div/ytd-rich-item-renderer[1]/div/ytd-rich-grid-media/div[1]/div[2]/div[2]/ytd-menu-renderer/yt-icon-button/button")
+    private WebElement videoActionsButton;
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/ytd-two-column-browse-results-renderer/div[1]/ytd-rich-grid-renderer/div[6]/ytd-rich-grid-row[1]/div/ytd-rich-item-renderer[1]/div/ytd-rich-grid-media/div[1]/div[2]/div[1]/ytd-video-meta-block/div[1]/div[1]/ytd-channel-name/div/div/yt-formatted-string/a")
+    private WebElement firstVideoChannelLink;
+    @FindBy(xpath = "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse[2]/ytd-two-column-browse-results-renderer/div[1]/ytd-section-list-renderer/div[2]/ytd-item-section-renderer[2]/div[3]/ytd-shelf-renderer/div[1]/div[1]/div/h2/div[2]/ytd-button-renderer/yt-button-shape/a")
+    private WebElement playAllButton;
 
     public VideosPage() {
         PageFactory.initElements(driver, this);
@@ -54,10 +62,24 @@ public class VideosPage extends Page{
         return new MainPage();
     }
 
-    public HistoryPage burgerMenu() throws InterruptedException {
+    public HistoryPage historyMenu() throws InterruptedException {
         firstYoutubeVideoLink.click();
         burgerMenu.click();
         historyButton.click();
         return new HistoryPage();
+    }
+
+    public LikedVideosPage likesMenu() throws InterruptedException {
+        firstYoutubeVideoLink.click();
+        likeButton.click();
+        burgerMenu.click();
+        likedVideosButton.click();
+        return new LikedVideosPage();
+    }
+
+    public VideosPage playAllVideoOnChannel() throws InterruptedException {
+        firstVideoChannelLink.click();
+        playAllButton.click();
+        return this;
     }
 }
